@@ -1,5 +1,6 @@
 const {src, dest, watch, parallel, series} = require('gulp');
 
+const fileInclude = require('gulp-file-include');
 const scss = require('gulp-sass')(require('sass'));
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify-es').default;
@@ -16,8 +17,6 @@ function scripts() {
         .pipe(browserSync.stream());
 }
 
-// Sass .pipe(scss({ outputStyle: 'compressed'})) - Compressed
-// Sass .pipe(scss()) - NotCompressed
 function styles() {
     return src(['app/scss/*.scss', 'app/components/*.scss'])
         .pipe(autoprefixer({ overrideBrowserslist: ['last 10 version'] }))
@@ -47,12 +46,12 @@ function cleanDist(){
 }
 
 function building() {
-    return src([
-        'app/css/style.min.css',
-        'app/js/main.min.js',
-        'app/*.html'
-    ], {base : 'app'})
-        .pipe(dest('dist'))
+    return src('app/*.html')
+        .pipe(fileInclude({
+          prefix: '@@',
+          basepath: '@file'
+        }))
+        .pipe(dest('dist'));
 }
 
 // EXPORTS
