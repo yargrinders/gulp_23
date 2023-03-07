@@ -46,12 +46,12 @@ function cleanDist(){
 }
 
 function building() {
-    return src('app/*.html')
-        .pipe(fileInclude({
-          prefix: '@@',
-          basepath: '@file'
-        }))
-        .pipe(dest('dist'));
+    return src([
+        'app/css/style.min.css',
+        'app/js/main.min.js',
+        'app/*.html'
+    ], {base : 'app'})
+        .pipe(dest('dist'))
 }
 
 // EXPORTS
