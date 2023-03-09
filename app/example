@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,15 +9,14 @@
 </head>
 <body>
     <div class="wrapper">
-        
         @@include('components/header.html')
         @@include('components/main.html')
         @@include('components/footer.html')
-    </div>
+    </div> -->
     
     <!-- jQuery 3.6.1 -->
-    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.1.js"></script> -->
     <!-- Scripts -->
-    <script src="js/main.min.js"></script>
+    <!-- <script src="js/main.min.js"></script>
 </body>
-</html>
+</html> -->
