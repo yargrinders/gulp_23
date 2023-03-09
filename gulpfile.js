@@ -52,18 +52,6 @@ function watchFiles() {
     watch('app/**/*.html', html);
 }
 
-// Building
-function building() {
-    return src([
-        'app/css/style.min.css',
-        'app/js/main.min.js',
-        'app/*.html'
-    ], {base : 'app'})
-        .pipe(dest('dist'))
-}
-
-
-
 // Function for browserSync initialization
 function browserSyncInit(done) {
   browserSync.init({
@@ -82,7 +70,6 @@ exports.clean = clean;
 exports.html = html;
 exports.scripts = scripts;
 exports.styles = styles;
-exports.building = building;
 
 
 // Command: gulp 
