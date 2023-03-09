@@ -3,6 +3,7 @@ const {src, dest, watch, parallel, series} = require('gulp');
 const del = require('del');
 const browserSync = require('browser-sync').create();
 const fileInclude = require('gulp-file-include');
+const imagemin      = require('gulp-imagemin');
 const scss = require('gulp-sass')(require('sass'));
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify-es').default;
@@ -22,6 +23,24 @@ function html() {
     }))
         .pipe(dest('dist'))
         .pipe(browserSync.stream());
+}
+
+function images() {
+  return src('app/images/**/*')
+    .pipe(imagemin(
+      [
+        imagemin.gifsicle({ interlaced: true }),
+        imagemin.mozjpeg({ quality: 75, progressive: true }),
+        imagemin.optipng({ optimizationLevel: 5 }),
+        imagemin.svgo({
+          plugins: [
+            { removeViewBox: true },
+            { cleanupIDs: false }
+          ]
+        })
+      ]
+    ))
+    .pipe(dest('dist/images'))
 }
 
 // Function for monitoring changes in JS files
@@ -47,8 +66,9 @@ function styles() {
 
 // Function for monitoring changes in files
 function watchFiles() {
+    watch(['app/images/**/*'], images)
     watch(['app/js/main.js'], scripts)
-    watch(['app/scss/*.scss', 'app/components/*.scss'], styles)  
+    watch(['app/scss/*.scss', 'app/components/*.scss'], styles) 
     watch('app/**/*.html', html);
 }
 
@@ -68,14 +88,15 @@ function browserSyncInit(done) {
 // EXPORTS
 exports.clean = clean;
 exports.html = html;
+exports.images = images;
 exports.scripts = scripts;
 exports.styles = styles;
 
 
 // Command: gulp 
 // Task for running build and watching changes
-exports.default = series(clean, html, parallel(scripts, styles, watchFiles, browserSyncInit));
+exports.default = series(clean, html, parallel(images, scripts, styles, watchFiles, browserSyncInit));
 
 // Command: gulp build 
 // Task building project
-exports.build = series(clean, html, scripts, styles);
+exports.build = series(clean, html, images, scripts, styles);
