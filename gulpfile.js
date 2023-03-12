@@ -100,7 +100,7 @@ function browserSyncInit(done) {
       baseDir: './dist'
     },
     port: 3000,
-    open: false,
+    open: true,
     notify: false
   });
   done();
