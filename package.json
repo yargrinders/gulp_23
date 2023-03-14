@@ -22,9 +22,8 @@
     "gulp-ttf2woff": "^1.1.1",
     "gulp-ttftowoff2": "^1.0.1",
     "gulp-uglify-es": "^3.0.0",
-    "sass": "^1.58.3"
-  },
-  "dependencies": {
+    "sass": "^1.58.3",
+    "jquery": "^3.6.1",
     "gulp-fontmin": "^0.7.4"
   }
 }

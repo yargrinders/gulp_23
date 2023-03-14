@@ -65,7 +65,11 @@ function images() {
 
 // Function for monitoring changes in JS files
 function scripts() {
-  return src(['app/js/*.js', '!app/js/main.min.js'])
+  return src([
+    // 'node_modules/jquery/dist/jquery.js',
+    'app/js/*.js', 
+    '!app/js/main.min.js'
+  ])
     .pipe(concat('main.min.js'))
     .pipe(uglify())
     .pipe(dest('dist/js'))
